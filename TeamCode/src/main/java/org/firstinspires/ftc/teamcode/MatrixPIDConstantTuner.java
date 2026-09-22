@@ -24,10 +24,8 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.MecanumRobotController;
-import org.firstinspires.ftc.teamcode.dtf_base_libraries.MecanumRobotController2;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.PinpointLocalizer;
 
 /**
@@ -69,7 +67,7 @@ public class MatrixPIDConstantTuner extends LinearOpMode {
 
         PinpointLocalizer localizer = new PinpointLocalizer(hardwareMap, runtime, new VectorF(0, 0, 0), new VectorF(0, 0, 0), 118, 126, GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD, new GoBildaPinpointDriver.EncoderDirection[]{GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED});
 
-        MecanumRobotController2 robot = new MecanumRobotController2(hardwareMap, runtime, motorNames, reverseList, PIDList, dt, dimensions, localizer);
+        MecanumRobotController robot = new MecanumRobotController(hardwareMap, runtime, motorNames, reverseList, PIDList, dt, dimensions, localizer);
 
         double xt = 0, yt = 0, ht = 0;
         double x = 0, y = 0, h = 0;

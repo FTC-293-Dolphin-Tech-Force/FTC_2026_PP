@@ -16,6 +16,7 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FO
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -26,9 +27,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.Arc;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.GoBildaPinpointDriver;
-import org.firstinspires.ftc.teamcode.dtf_base_libraries.MecanumRobotController2;
+import org.firstinspires.ftc.teamcode.dtf_base_libraries.MecanumRobotController;
+import org.firstinspires.ftc.teamcode.dtf_base_libraries.Path;
+import org.firstinspires.ftc.teamcode.dtf_base_libraries.PathOld;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.PinpointLocalizer;
-import org.firstinspires.ftc.teamcode.dtf_base_libraries.Spline;
 
 /**
  * This file contains a minimal example of a Linear "OpMode". An OpMode is a 'program' that runs
@@ -40,9 +42,11 @@ import org.firstinspires.ftc.teamcode.dtf_base_libraries.Spline;
  * Driver Station OpMode list, or add a @Disabled annotation to prevent this OpMode from being
  * added to the Driver Station.
  */
+/*
 @TeleOp
 
-public class ArcTest extends LinearOpMode {
+@Deprecated
+public class ArcTestOld extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -51,7 +55,7 @@ public class ArcTest extends LinearOpMode {
     //@Override
     public void runOpMode() {
 
-
+        /*
         String[] motorNames = {"DriveLF", "DriveRF", "DriveLB", "DriveRB"};
         boolean[] reverseList = {true, false, true, false};
         double P, I, D, F;
@@ -69,7 +73,7 @@ public class ArcTest extends LinearOpMode {
 
         PinpointLocalizer localizer = new PinpointLocalizer(hardwareMap, runtime, new VectorF(0, 0, 0), new VectorF(0, 0, 0), 118, 126, GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD, new GoBildaPinpointDriver.EncoderDirection[]{GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED});
 
-        MecanumRobotController2 robot = new MecanumRobotController2(hardwareMap, runtime, motorNames, reverseList, PIDList, dt, dimensions, localizer);
+        MecanumRobotController robot = new MecanumRobotController(hardwareMap, runtime, motorNames, reverseList, PIDList, dt, dimensions, localizer);
 
         double xt = 0, yt = 0, ht = 0;
         double x = 0, y = 0, h = 0;
@@ -109,7 +113,7 @@ public class ArcTest extends LinearOpMode {
                 double error = targetPose.subtracted(robot.getLocalizer().getPose()).magnitude();
                 telemetry.addData("error", "%4.3f", error);
 
-                robot.followPath(path, (runtime.seconds()-timeNow));
+                robot.followPath(path, runtime.seconds(), timeNow);
             }
             else{
                 robot.setTargetVelocity(new VectorF(0, 0, 0));
@@ -159,6 +163,7 @@ public class ArcTest extends LinearOpMode {
                 }
                 telemetry.addData("velocity rad/s, power /100", "%4.1f, %4.2f, %4.3f", (float)i, robot.getMotor(i).getVelocity(AngleUnit.RADIANS), robot.getMotor(i).getPower());
             }*/
+        /*
             robot.getLocalizer().updatePose();
             x = robot.getLocalizer().getPose().get(0);
             y = robot.getLocalizer().getPose().get(1);
@@ -167,9 +172,8 @@ public class ArcTest extends LinearOpMode {
             telemetry.addData("Target Derivative", "%4.3f, %4.3f, %4.3f", path.getdx(0.1*(runtime.seconds()-timeNow)), path.getdy(0.1*(runtime.seconds()-timeNow)), path.getdh(0.1*(runtime.seconds()-timeNow)));
             telemetry.update();
 
-
-
-
+        */
+/*
         }
     }
-}
+}*/

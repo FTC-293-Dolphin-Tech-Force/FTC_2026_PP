@@ -25,7 +25,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.GoBildaPinpointDriver;
-import org.firstinspires.ftc.teamcode.dtf_base_libraries.MecanumRobotController2;
+import org.firstinspires.ftc.teamcode.dtf_base_libraries.MecanumRobotController;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.PinpointLocalizer;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.Segment;
 import org.firstinspires.ftc.teamcode.dtf_base_libraries.SegmentedPath;
@@ -72,7 +72,7 @@ public class SegmentedPathTest extends LinearOpMode {
 
         PinpointLocalizer localizer = new PinpointLocalizer(hardwareMap, runtime, new VectorF(0, 0, 0), new VectorF(0, 0, 0), 118, 126, GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD, new GoBildaPinpointDriver.EncoderDirection[]{GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED});
 
-        MecanumRobotController2 robot = new MecanumRobotController2(hardwareMap, runtime, motorNames, reverseList, PIDList, dt, dimensions, localizer);
+        MecanumRobotController robot = new MecanumRobotController(hardwareMap, runtime, motorNames, reverseList, PIDList, dt, dimensions, localizer);
 
         double xt = 0, yt = 0, ht = 0;
         double x = 0, y = 0, h = 0;
@@ -81,11 +81,22 @@ public class SegmentedPathTest extends LinearOpMode {
         float kPval = (float) 0.60, kIval = (float) 0, kDval = (float) 0.12;
         double timeNow = 0;
 
-        Spline path1 = new Spline(new double[] {0, 0.25}, new double[] {0}, new double[] {0}); //move in x direction
-        Spline path2 = new Spline(new double[] {1}, new double[] {0, 0.25}, new double[] {0}); // move in y direction
+        Spline path1 = new Spline(
+                new double[] {0, 0.25},
+                new double[] {0},
+                new double[] {0},
+                4
+        );
 
-        Segment segment1 = new Segment(path1, 0, 4);
-        Segment segment2 = new Segment(path2, 4, 8);
+        Spline path2 = new Spline(
+                new double[] {1},
+                new double[] {0, 0.25},
+                new double[] {0},
+                4
+        );
+
+        Segment segment1 = new Segment(path1, 4);
+        Segment segment2 = new Segment(path2, 4);
 
         ArrayList<Segment> segments = new ArrayList<Segment>();
         segments.add(segment1);
@@ -122,7 +133,7 @@ public class SegmentedPathTest extends LinearOpMode {
                 double error = targetPose.subtracted(robot.getLocalizer().getPose()).magnitude();
                 telemetry.addData("error", "%4.3f", error);
 
-                robot.followPath(trajectory, (runtime.seconds()-timeNow));
+                robot.followPath(trajectory, runtime.seconds(), timeNow);
             }
             else{
                 robot.setTargetVelocity(new VectorF(0, 0, 0));
@@ -141,7 +152,10 @@ public class SegmentedPathTest extends LinearOpMode {
             y = robot.getLocalizer().getPose().get(1);
             h = robot.getLocalizer().getPose().get(2);
             telemetry.addData("True Pose (x, y, h)", "%4.3f, %4.3f, %4.3f", x, y, h);
-            telemetry.addData("Target Derivative", "%4.3f, %4.3f, %4.3f", trajectory.getdx(0.1*(runtime.seconds()-timeNow)), trajectory.getdy(0.1*(runtime.seconds()-timeNow)), trajectory.getdh(0.1*(runtime.seconds()-timeNow)));
+            double dx = robot.getLocalizer().getVel().get(0);
+            double dy = robot.getLocalizer().getVel().get(1);
+            double dh = robot.getLocalizer().getVel().get(2);
+            telemetry.addData("Target Derivative", "%4.3f, %4.3f, %4.3f", dx, dy, dh);
             telemetry.update();
 
 
