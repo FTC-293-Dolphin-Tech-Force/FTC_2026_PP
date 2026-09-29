@@ -81,22 +81,18 @@ public class SegmentedPathTest extends LinearOpMode {
         float kPval = (float) 0.60, kIval = (float) 0, kDval = (float) 0.12;
         double timeNow = 0;
 
-        Spline path1 = new Spline(
+        Segment segment1 = new Spline(
                 new double[] {0, 0.25},
                 new double[] {0},
                 new double[] {0},
                 4
         );
-
-        Spline path2 = new Spline(
+        Segment segment2 = new Spline(
                 new double[] {1},
                 new double[] {0, 0.25},
                 new double[] {0},
                 4
         );
-
-        Segment segment1 = new Segment(path1, 4);
-        Segment segment2 = new Segment(path2, 4);
 
         ArrayList<Segment> segments = new ArrayList<Segment>();
         segments.add(segment1);
